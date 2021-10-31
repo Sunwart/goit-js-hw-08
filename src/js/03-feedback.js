@@ -24,8 +24,12 @@ function saveCurrentData(event) {
 function formInitialization() {
   if (localStorage.getItem(FORM_INPUT_DATA)) {
     const savedData = JSON.parse(localStorage.getItem(FORM_INPUT_DATA));
-    formElem.email.value = savedData.email;
-    formElem.message.value = savedData.message;
+    if (savedData.email !== undefined) {
+      formElem.email.value = savedData.email;
+    }
+    if (savedData.message !== undefined) {
+      formElem.message.value = savedData.message;
+    }
   }
 }
 
@@ -34,8 +38,7 @@ function clearForm(event) {
   localStorage.removeItem(FORM_INPUT_DATA);
   console.log('User email is: ', formElem.email.value);
   console.log('User message is: ', formElem.message.value);
-  formElem.email.value = '';
-  formElem.message.value = '';
+  event.currentTarget.reset();
   currentData.email = '';
   currentData.message = '';
 }
